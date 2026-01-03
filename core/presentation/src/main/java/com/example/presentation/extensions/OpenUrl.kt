@@ -1,4 +1,4 @@
-package com.example.domain.extensions
+package com.example.presentation.extensions
 
 import android.content.Context
 import android.content.Intent
