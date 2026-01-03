@@ -3,6 +3,7 @@ package com.example.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Course
+import com.example.domain.usecase.GetFavouriteCoursesUseCase
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -10,12 +11,13 @@ import kotlinx.coroutines.flow.SharingStarted
 
 class FavouritesViewModel(
     coursesFlow: StateFlow<List<Course>>,
+    private val getFavoriteCoursesUseCase: GetFavouriteCoursesUseCase,
     private val onToggleFavorite: (Int) -> Unit
 ) : ViewModel() {
 
     val favoriteCourses: StateFlow<List<Course>> = coursesFlow
         .map { courses ->
-            courses.filter { it.hasLike }
+            getFavoriteCoursesUseCase(courses)
         }
         .stateIn(
             scope = viewModelScope,

@@ -3,19 +3,31 @@ package com.example.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Course
-import com.example.domain.repository.CoursesRepository
+import com.example.domain.usecase.GetCoursesUseCase
+import com.example.domain.usecase.ObserveCoursesWithFavoritesUseCase
+import com.example.domain.usecase.ToggleFavouriteUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class SharedCoursesViewModel(
-    private val repository: CoursesRepository
+    private val getCoursesUseCase: GetCoursesUseCase,
+    observeCoursesWithFavoritesUseCase: ObserveCoursesWithFavoritesUseCase,
+    private val toggleFavoriteUseCase: ToggleFavouriteUseCase
 ) : ViewModel() {
 
-    private val _courses = MutableStateFlow<List<Course>>(emptyList())
-    val courses: StateFlow<List<Course>> = _courses.asStateFlow()
+    private val _coursesFromNetwork = MutableStateFlow<List<Course>>(emptyList())
+
+    val courses: StateFlow<List<Course>> = observeCoursesWithFavoritesUseCase(
+        coursesFromNetwork = _coursesFromNetwork
+    ).stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = emptyList()
+    )
 
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
@@ -31,8 +43,10 @@ class SharedCoursesViewModel(
         viewModelScope.launch {
             _isLoading.value = true
             _errorMessage.value = null
+
             try {
-                _courses.value = repository.getCourses()
+                val courses = getCoursesUseCase()
+                _coursesFromNetwork.value = courses
             } catch (e: Exception) {
                 _errorMessage.value = e.message ?: "Ошибка загрузки курсов"
             } finally {
@@ -42,11 +56,11 @@ class SharedCoursesViewModel(
     }
 
     fun toggleFavorite(courseId: Int) {
-        _courses.update { list ->
-            list.map {
-                if (it.id == courseId)
-                    it.copy(hasLike = !it.hasLike)
-                else it
+        viewModelScope.launch {
+            try {
+                toggleFavoriteUseCase(courseId)
+            } catch (e: Exception) {
+                _errorMessage.value = "Ошибка обновления избранного"
             }
         }
     }

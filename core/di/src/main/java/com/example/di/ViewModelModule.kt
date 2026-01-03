@@ -9,18 +9,24 @@ import org.koin.dsl.module
 val viewModelModule = module {
 
     single {
-        SharedCoursesViewModel(get())
+        SharedCoursesViewModel(
+            getCoursesUseCase = get(),
+            observeCoursesWithFavoritesUseCase = get(),
+            toggleFavoriteUseCase = get()
+        )
     }
 
     viewModel {
         MainViewModel(
-            sharedViewModel = get()
+            sharedViewModel = get(),
+            sortCoursesByDateUseCase = get()
         )
     }
 
     viewModel {
         FavouritesViewModel(
             coursesFlow = get<SharedCoursesViewModel>().courses,
+            getFavoriteCoursesUseCase = get(),
             onToggleFavorite = get<SharedCoursesViewModel>()::toggleFavorite
         )
     }

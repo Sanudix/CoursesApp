@@ -8,7 +8,8 @@ val repositoryModule = module {
 
     single<CoursesRepository> {
         CoursesRepositoryImpl(
-            api = get()
+            api = get(),
+            favouriteCourseDao = get()
         )
     }
 }

@@ -3,6 +3,7 @@ package com.example.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Course
+import com.example.domain.usecase.SortCoursesByDateUseCase
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.SharingStarted
@@ -12,7 +13,8 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 
 class MainViewModel(
-    private val sharedViewModel: SharedCoursesViewModel
+    private val sharedViewModel: SharedCoursesViewModel,
+    private val sortCoursesByDateUseCase: SortCoursesByDateUseCase
 ) : ViewModel() {
 
     private val _showSorted = MutableStateFlow(false)
@@ -25,7 +27,7 @@ class MainViewModel(
         showSorted
     ) { courses, showSorted ->
         if (showSorted)
-            courses.sortedByDescending { it.publishDate }
+            sortCoursesByDateUseCase(courses)
         else
             courses
     }.stateIn(
