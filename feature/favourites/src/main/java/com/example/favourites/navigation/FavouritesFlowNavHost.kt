@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.course_detail.CourseDetailScreen
 import com.example.favourites.FavouritesScreen
 import com.example.presentation.SharedCoursesViewModel
+import com.example.presentation.navigation.Routes
 import org.koin.compose.getKoin
 
 @Composable
@@ -17,17 +18,17 @@ fun FavoritesFlowNavHost() {
 
     NavHost(
         navController = navController,
-        startDestination = "favoritesMain"
+        startDestination = Routes.FavouritesMain.route
     ) {
-        composable("favoritesMain") {
+        composable(Routes.FavouritesMain.route) {
             FavouritesScreen(
                 onCourseClick = { courseId ->
-                    navController.navigate("course/$courseId")
+                    navController.navigate(Routes.CourseDetail.createRoute(courseId))
                 }
             )
         }
 
-        composable("course/{courseId}") { backStackEntry ->
+        composable(Routes.CourseDetail.route) { backStackEntry ->
             val sharedViewModel: SharedCoursesViewModel = getKoin().get()
             val courseId = backStackEntry.arguments
                 ?.getString("courseId")

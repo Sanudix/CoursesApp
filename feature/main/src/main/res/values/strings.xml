@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_search_placeholder">Search courses…</string>
+    <string name="main_sort_by_date">По дате добавления</string>
+    <string name="main_loading">Загрузка курсов…</string>
+    <string name="main_error_title">Ошибка загрузки</string>
+    <string name="main_error_unknown">Неизвестная ошибка</string>
+    <string name="main_no_courses">Курсы не найдены</string>
+</resources>

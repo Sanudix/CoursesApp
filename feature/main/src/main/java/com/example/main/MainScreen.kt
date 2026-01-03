@@ -34,6 +34,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -98,7 +99,7 @@ fun MainScreen(
                         onValueChange = { newText -> searchQuery = newText },
                         placeholder = {
                             Text(
-                                "Search courses...",
+                                text = stringResource(R.string.main_search_placeholder),
                                 fontFamily = FontFamily(Font(R.font.roboto)),
                                 fontSize = 18.sp,
                                 color = Color(0xffF2F2F3),
@@ -151,7 +152,7 @@ fun MainScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "По дате добавления",
+                text = stringResource(R.string.main_sort_by_date),
                 color = Color(0xff12B956),
                 fontSize = 14.sp,
                 fontFamily = FontFamily(Font(R.font.roboto)),
@@ -182,7 +183,7 @@ fun MainScreen(
                     ) {
                         CircularProgressIndicator(color = Color(0xff12B956))
                         Text(
-                            text = "Загрузка курсов...",
+                            text = stringResource(R.string.main_loading),
                             color = Color(0xffF2F2F3),
                             fontFamily = FontFamily(Font(R.font.roboto))
                         )
@@ -202,14 +203,14 @@ fun MainScreen(
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         Text(
-                            text = "Ошибка загрузки",
+                            text = stringResource(R.string.main_error_title),
                             color = Color(0xffFF5252),
                             fontFamily = FontFamily(Font(R.font.roboto)),
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp
                         )
                         Text(
-                            text = errorMessage ?: "Неизвестная ошибка",
+                            text = errorMessage ?: stringResource(R.string.main_error_unknown),
                             color = Color(0xffF2F2F3),
                             fontFamily = FontFamily(Font(R.font.roboto))
                         )
@@ -229,7 +230,7 @@ fun MainScreen(
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
                         Text(
-                            text = "Курсы не найдены",
+                            text = stringResource(R.string.main_no_courses),
                             color = Color(0xffF2F2F3),
                             fontFamily = FontFamily(Font(R.font.roboto)),
                             fontSize = 18.sp

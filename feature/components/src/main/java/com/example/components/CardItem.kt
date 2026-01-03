@@ -30,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -102,8 +103,8 @@ fun CardItem(
                         if (course.hasLike) R.drawable.ic_favourites_filled
                         else R.drawable.ic_favourites
                     ),
-                    contentDescription = if (course.hasLike) "Удалить из избранного"
-                    else "Добавить в избранное",
+                    contentDescription = if (course.hasLike) stringResource(R.string.components_delete_from_favourites)
+                    else stringResource(R.string.components_add_to_favourites),
                     tint = if (course.hasLike) Color(0xff12B956) else Color(0xffF2F2F3),
                     modifier = Modifier.size(17.dp)
                 )
@@ -144,7 +145,7 @@ fun CardItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "${course.price} ₽",
+                    text = stringResource(R.string.components_price_format, course.price),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp,
@@ -160,7 +161,7 @@ fun CardItem(
                     )
                 ) {
                     Text(
-                        text = "Подробнее →",
+                        text = stringResource(R.string.components_more_button),
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Medium,
                         color = Color(0xff12B956)

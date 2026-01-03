@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="components_delete_from_favourites">Удалить из избранного</string>
+    <string name="components_add_to_favourites">Добавить в избранное</string>
+    <string name="components_more_button">Подробнее →</string>
+    <string name="components_price_format">%s ₽</string>
+</resources>

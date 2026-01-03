@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="month_january">Января</string>
+    <string name="month_february">Февраля</string>
+    <string name="month_march">Марта</string>
+    <string name="month_april">Апреля</string>
+    <string name="month_may">Мая</string>
+    <string name="month_june">Июня</string>
+    <string name="month_july">Июля</string>
+    <string name="month_august">Августа</string>
+    <string name="month_september">Сентября</string>
+    <string name="month_october">Октября</string>
+    <string name="month_november">Ноября</string>
+    <string name="month_december">Декабря</string>
+    <string name="date_format">%1$d %2$s %3$s</string>
+</resources>

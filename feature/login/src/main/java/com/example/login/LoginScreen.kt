@@ -33,6 +33,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -69,7 +70,8 @@ fun LoginScreen(
             .padding(horizontal = 16.dp)
     ) {
         Text(
-            text = "Вход",
+//            text = "Вход",
+            text = stringResource(R.string.login_title),
             modifier = Modifier,
             color = Color(0xffF2F2F3),
             fontSize = 28.sp,
@@ -81,7 +83,7 @@ fun LoginScreen(
         Spacer(Modifier.height(28.dp))
 
         Text(
-            text = "Email",
+            text = stringResource(R.string.login_email_label),
             color = Color(0xffF2F2F3),
             fontSize = 16.sp,
             fontFamily = FontFamily(Font(R.font.roboto)),
@@ -105,7 +107,7 @@ fun LoginScreen(
             ),
             placeholder = {
                 Text(
-                    "example@gmail.com",
+                    text = stringResource(R.string.login_email_placeholder),
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     color = Color(0xffF2F2F3),
                     modifier = Modifier.alpha(0.5f)
@@ -129,7 +131,7 @@ fun LoginScreen(
         Spacer(Modifier.height(28.dp))
 
         Text(
-            text = "Пароль",
+            text = stringResource(R.string.login_password_label),
             color = Color(0xffF2F2F3),
             fontSize = 16.sp,
             fontFamily = FontFamily(Font(R.font.roboto)),
@@ -144,7 +146,7 @@ fun LoginScreen(
             onValueChange = { newText -> password = newText },
             placeholder = {
                 Text(
-                    "Введите пароль",
+                    text = stringResource(R.string.login_password_placeholder),
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     color = Color(0xffF2F2F3),
                     modifier = Modifier.alpha(0.5f)
@@ -187,7 +189,7 @@ fun LoginScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = "Вход",
+                text = stringResource(R.string.login_button),
                 color = Color(0xffF2F2F3),
                 fontSize = 16.sp,
                 fontFamily = FontFamily(Font(R.font.roboto)),
@@ -203,7 +205,7 @@ fun LoginScreen(
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Нету аккаунта?",
+                text = stringResource(R.string.login_no_account),
                 color = Color(0xffF2F2F3),
                 fontSize = 12.sp,
                 fontFamily = FontFamily(Font(R.font.roboto)),
@@ -214,7 +216,7 @@ fun LoginScreen(
             Spacer(Modifier.width(4.dp))
 
             Text(
-                text = "Регистрация",
+                text = stringResource(R.string.login_register),
                 color = Color(0xff12B956),
                 fontSize = 12.sp,
                 fontFamily = FontFamily(Font(R.font.roboto)),
@@ -224,7 +226,7 @@ fun LoginScreen(
         }
 
         Text(
-            text = "Забыл пароль",
+            text = stringResource(R.string.login_forgot_password),
             color = Color(0xff12B956),
             fontSize = 12.sp,
             fontFamily = FontFamily(Font(R.font.roboto)),
@@ -266,7 +268,7 @@ fun LoginScreen(
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_vk),
-                    contentDescription = "Войти через VK",
+                    contentDescription = stringResource(R.string.login_log_in_vk),
                     tint = Color.White
                 )
             }
@@ -295,7 +297,7 @@ fun LoginScreen(
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_ok),
-                    contentDescription = "Войти через Одноклассники",
+                    contentDescription = stringResource(R.string.login_log_in_ok),
                     tint = Color.White
                 )
             }

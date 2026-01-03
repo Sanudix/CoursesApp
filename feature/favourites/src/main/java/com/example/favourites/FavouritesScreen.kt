@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -38,7 +39,7 @@ fun FavouritesScreen(
             .padding(horizontal = 16.dp)
     ) {
         Text(
-            text = "Избранное",
+            text = stringResource(R.string.favourites_favourites_label),
             color = Color(0xffF2F2F3),
             fontSize = 26.sp,
             fontFamily = FontFamily(Font(R.font.roboto)),

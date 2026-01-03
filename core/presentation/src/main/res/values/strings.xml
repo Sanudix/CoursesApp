@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="presentation_loading_error">Ошибка загрузки курсов</string>
+    <string name="presentation_updating_error">Ошибка обновления избранного</string>
+</resources>

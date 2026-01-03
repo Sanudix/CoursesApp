@@ -1,5 +1,6 @@
 package com.example.presentation
 
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Course
@@ -48,7 +49,7 @@ class SharedCoursesViewModel(
                 val courses = getCoursesUseCase()
                 _coursesFromNetwork.value = courses
             } catch (e: Exception) {
-                _errorMessage.value = e.message ?: "Ошибка загрузки курсов"
+                _errorMessage.value = e.message ?: stringResource(R.string.presentation_loading_error)
             } finally {
                 _isLoading.value = false
             }
@@ -60,7 +61,7 @@ class SharedCoursesViewModel(
             try {
                 toggleFavoriteUseCase(courseId)
             } catch (e: Exception) {
-                _errorMessage.value = "Ошибка обновления избранного"
+                _errorMessage.value = stringResource(R.string.presentation_updating_error)
             }
         }
     }

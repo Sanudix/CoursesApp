@@ -30,6 +30,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -61,7 +62,7 @@ fun CourseDetailScreen(
         Box {
             Image(
                 painter = painterResource(R.drawable.img_card_1_big),
-                contentDescription = "Изображение курса",
+                contentDescription = stringResource(R.string.course_detail_image),
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -104,8 +105,8 @@ fun CourseDetailScreen(
                             if (isFavorite) R.drawable.ic_favourites_filled
                             else R.drawable.ic_favourites_black
                         ),
-                        contentDescription = if (isFavorite) "Удалить из избранного"
-                        else "Добавить в избранное",
+                        contentDescription = if (isFavorite) stringResource(R.string.course_detail_remove_from_favourites)
+                        else stringResource(R.string.course_detail_add_to_favourites),
                         modifier = Modifier
                             .size(24.dp)
                             .align(Alignment.Center),
@@ -155,19 +156,19 @@ fun CourseDetailScreen(
             ) {
                 Image(
                     painter = painterResource(R.drawable.img_author),
-                    contentDescription = "Автор",
+                    contentDescription = stringResource(R.string.course_detail_author),
                     modifier = Modifier.size(40.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Column {
                     Text(
-                        text = "Автор",
+                        text = stringResource(R.string.course_detail_author),
                         color = Color(0xffF2F2F3).copy(alpha = 0.5f),
                         fontSize = 14.sp,
                         fontFamily = FontFamily(Font(R.font.roboto))
                     )
                     Text(
-                        text = "Merton Academy",
+                        text = stringResource(R.string.course_detail_author_name),
                         color = Color(0xffF2F2F3),
                         fontSize = 16.sp,
                         fontFamily = FontFamily(Font(R.font.roboto)),
@@ -189,7 +190,7 @@ fun CourseDetailScreen(
                 )
             ) {
                 Text(
-                    text = "Начать курс",
+                    text = stringResource(R.string.course_detail_start_button),
                     fontSize = 15.sp,
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     fontWeight = FontWeight.Normal,
@@ -210,7 +211,7 @@ fun CourseDetailScreen(
                 )
             ) {
                 Text(
-                    text = "Перейти на платформу",
+                    text = stringResource(R.string.course_detail_platform_button),
                     fontSize = 15.sp,
                     fontFamily = FontFamily(Font(R.font.roboto)),
                     fontWeight = FontWeight.Medium,
@@ -221,7 +222,7 @@ fun CourseDetailScreen(
             Spacer(modifier = Modifier.height(28.dp))
 
             Text(
-                text = "О курсе",
+                text = stringResource(R.string.course_detail_about_title),
                 color = Color.White,
                 fontSize = 20.sp,
                 fontFamily = FontFamily(Font(R.font.roboto)),
@@ -243,7 +244,7 @@ fun CourseDetailScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "Кроме теоретических материалов вас ждут тесты и практические задания. Они помогут лучше запомнить новую информацию.",
+                text = stringResource(R.string.course_detail_about_description),
                 color = Color(0xffF2F2F3).copy(alpha = 0.8f),
                 fontSize = 16.sp,
                 fontFamily = FontFamily(Font(R.font.roboto)),
@@ -253,7 +254,7 @@ fun CourseDetailScreen(
 
             Spacer(modifier = Modifier.height(28.dp))
             Text(
-                text = "${course.price} ₽",
+                text = stringResource(R.string.course_detail_price_format, course.price),
                 color = Color(0xff12B956),
                 fontSize = 20.sp,
                 fontFamily = FontFamily(Font(R.font.roboto)),

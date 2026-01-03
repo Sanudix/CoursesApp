@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="course_detail_image">Изображение курса</string>
+    <string name="course_detail_add_to_favourites">Добавить в избранное</string>
+    <string name="course_detail_remove_from_favourites">Добавить в избранное</string>
+    <string name="course_detail_author">Автор</string>
+    <string name="course_detail_author_name">Merton Academy</string>
+    <string name="course_detail_start_button">Начать курс</string>
+    <string name="course_detail_platform_button">Перейти на платформу</string>
+    <string name="course_detail_about_title">О курсе</string>
+    <string name="course_detail_about_description">Кроме теоретических материалов вас ждут тесты и практические задания. Они помогут лучше запомнить новую информацию.</string>
+    <string name="course_detail_price_format">%s ₽</string>
+</resources>
