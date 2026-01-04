@@ -21,6 +21,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,16 +32,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.components.DatePanel
 import com.example.components.RatingPanel
 import com.example.domain.model.Course
 import com.example.presentation.SharedCoursesViewModel
+import com.example.theme.ITCoursesApplicationTheme
+import com.example.theme.dimensions
 
 @Composable
 fun CourseDetailScreen(
@@ -50,13 +49,15 @@ fun CourseDetailScreen(
     onStartCourse: () -> Unit = {},
     onGoToPlatform: () -> Unit = {}
 ) {
+    val colors = ITCoursesApplicationTheme.colors
+    val dimensions = ITCoursesApplicationTheme.dimensions
     val courses by sharedViewModel.courses.collectAsStateWithLifecycle()
     val isFavorite = courses.find { it.id == course.id }?.hasLike ?: course.hasLike
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color(0xff151515))
+            .background(color = colors.background)
             .verticalScroll(rememberScrollState())
     ) {
         Box {
@@ -66,18 +67,18 @@ fun CourseDetailScreen(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(240.dp)
+                    .height(dimensions.detailImageHeight)
             )
 
             Row {
                 Box(
                     modifier = Modifier
-                        .padding(top = 16.dp, start = 16.dp)
+                        .padding(top = dimensions.paddingXMedium, start = dimensions.paddingXMedium)
                         .clickable { onNavigateBack() }
                         .clip(CircleShape)
-                        .background(Color(0xffF2F2F3))
-                        .padding(8.dp)
-                        .size(32.dp)
+                        .background(colors.textPrimary)
+                        .padding(dimensions.paddingSmall)
+                        .size(dimensions.iconSizeXLarge)
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.ic_arrow_left),
@@ -91,14 +92,14 @@ fun CourseDetailScreen(
 
                 Box(
                     modifier = Modifier
-                        .padding(top = 16.dp, end = 16.dp)
+                        .padding(top = dimensions.paddingXMedium, end = dimensions.paddingXMedium)
                         .clickable {
                             sharedViewModel.toggleFavorite(course.id)
                         }
                         .clip(CircleShape)
-                        .background(Color(0xffF2F2F3))
-                        .padding(8.dp)
-                        .size(32.dp)
+                        .background(colors.textPrimary)
+                        .padding(dimensions.paddingSmall)
+                        .size(dimensions.iconSizeXLarge)
                 ) {
                     Icon(
                         painter = painterResource(
@@ -108,9 +109,9 @@ fun CourseDetailScreen(
                         contentDescription = if (isFavorite) stringResource(R.string.course_detail_remove_from_favourites)
                         else stringResource(R.string.course_detail_add_to_favourites),
                         modifier = Modifier
-                            .size(24.dp)
+                            .size(dimensions.iconSizeLarge)
                             .align(Alignment.Center),
-                        tint = if (isFavorite) Color(0xff12B956) else Color.Black
+                        tint = if (isFavorite) colors.accent else Color.Black
                     )
                 }
             }
@@ -118,7 +119,7 @@ fun CourseDetailScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 12.dp, top = 210.dp),
+                    .padding(start = dimensions.cornerRadiusSmall, top = dimensions.rowHeightLarge),
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.Top
             ) {
@@ -126,7 +127,7 @@ fun CourseDetailScreen(
                     rating = course.rate.toFloatOrNull() ?: 0f,
                 )
 
-                Spacer(Modifier.width(4.dp))
+                Spacer(Modifier.width(dimensions.paddingXXSmall))
 
                 DatePanel(
                     text = course.startDate,
@@ -136,19 +137,17 @@ fun CourseDetailScreen(
 
         Column(
             modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .padding(top = 16.dp, bottom = 24.dp)
+                .padding(horizontal = dimensions.paddingXMedium)
+                .padding(top = dimensions.paddingXMedium, bottom = dimensions.paddingLarge)
         ) {
             Text(
                 text = course.title,
-                color = Color.White,
-                fontSize = 22.sp,
-                fontFamily = FontFamily(Font(R.font.roboto)),
-                fontWeight = FontWeight.Normal,
+                color = colors.textPrimary,
+                style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(dimensions.paddingXMedium))
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -157,107 +156,96 @@ fun CourseDetailScreen(
                 Image(
                     painter = painterResource(R.drawable.img_author),
                     contentDescription = stringResource(R.string.course_detail_author),
-                    modifier = Modifier.size(40.dp)
+                    modifier = Modifier.size(dimensions.avatarSizeMedium)
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(dimensions.paddingSmall))
                 Column {
                     Text(
                         text = stringResource(R.string.course_detail_author),
-                        color = Color(0xffF2F2F3).copy(alpha = 0.5f),
-                        fontSize = 14.sp,
-                        fontFamily = FontFamily(Font(R.font.roboto))
+                        color = colors.textSecondary,
+                        style = MaterialTheme.typography.bodySmall
                     )
                     Text(
                         text = stringResource(R.string.course_detail_author_name),
-                        color = Color(0xffF2F2F3),
-                        fontSize = 16.sp,
-                        fontFamily = FontFamily(Font(R.font.roboto)),
+                        color = colors.textPrimary,
+                        style = MaterialTheme.typography.bodyLarge,
                         fontWeight = FontWeight.Medium
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(dimensions.paddingXXLarge))
 
             Button(
                 onClick = onStartCourse,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(44.dp),
-                shape = RoundedCornerShape(100.dp),
+                    .height(dimensions.buttonHeightMedium),
+                shape = RoundedCornerShape(dimensions.cornerRadiusFull),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xff12B956)
+                    containerColor = colors.accent
                 )
             ) {
                 Text(
                     text = stringResource(R.string.course_detail_start_button),
-                    fontSize = 15.sp,
-                    fontFamily = FontFamily(Font(R.font.roboto)),
-                    fontWeight = FontWeight.Normal,
-                    color = Color(0xffF2F2F3)
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = colors.textPrimary
                 )
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(dimensions.paddingSmall))
 
             Button(
                 onClick = onGoToPlatform,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(44.dp),
-                shape = RoundedCornerShape(100.dp),
+                    .height(dimensions.buttonHeightMedium),
+                shape = RoundedCornerShape(dimensions.cornerRadiusFull),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xff24252A)
+                    containerColor = colors.cardBackground
                 )
             ) {
                 Text(
                     text = stringResource(R.string.course_detail_platform_button),
-                    fontSize = 15.sp,
-                    fontFamily = FontFamily(Font(R.font.roboto)),
+                    style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Medium,
-                    color = Color(0xffF2F2F3)
+                    color = colors.textPrimary
                 )
             }
 
-            Spacer(modifier = Modifier.height(28.dp))
+            Spacer(modifier = Modifier.height(dimensions.paddingXLarge))
 
             Text(
                 text = stringResource(R.string.course_detail_about_title),
-                color = Color.White,
-                fontSize = 20.sp,
-                fontFamily = FontFamily(Font(R.font.roboto)),
-                fontWeight = FontWeight.Normal,
+                color = colors.textPrimary,
+                style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(dimensions.paddingXMedium))
 
             Text(
                 text = course.text,
-                color = Color(0xffF2F2F3).copy(alpha = 0.8f),
-                fontSize = 16.sp,
-                fontFamily = FontFamily(Font(R.font.roboto)),
-                lineHeight = 24.sp,
+                color = colors.textTertiary,
+                style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(dimensions.paddingXMedium))
 
             Text(
                 text = stringResource(R.string.course_detail_about_description),
-                color = Color(0xffF2F2F3).copy(alpha = 0.8f),
-                fontSize = 16.sp,
-                fontFamily = FontFamily(Font(R.font.roboto)),
-                lineHeight = 24.sp,
+                color = colors.textTertiary,
+                style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(28.dp))
+            Spacer(modifier = Modifier.height(dimensions.paddingXLarge))
+
             Text(
                 text = stringResource(R.string.course_detail_price_format, course.price),
-                color = Color(0xff12B956),
-                fontSize = 20.sp,
-                fontFamily = FontFamily(Font(R.font.roboto)),
+                color = colors.accent,
+                style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.fillMaxWidth()
             )

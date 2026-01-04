@@ -17,42 +17,41 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import com.example.theme.ITCoursesApplicationTheme
+import com.example.theme.dimensions
 
 @Composable
 fun RatingPanel(
     rating: Float,
-    modifier: Modifier = Modifier.width(50.dp),
-    cornerRadius: Dp = 12.dp,
-    backgroundColor: Color = Color(0xff32333A).copy(alpha = 0.7f)
+    modifier: Modifier = Modifier.width(ITCoursesApplicationTheme.dimensions.ratingPanelWidth),
+    cornerRadius: Dp = ITCoursesApplicationTheme.dimensions.cornerRadiusSmall,
+    backgroundColor: Color = ITCoursesApplicationTheme.colors.overlay
 ) {
+    val colors = ITCoursesApplicationTheme.colors
+    val dimensions = ITCoursesApplicationTheme.dimensions
+
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(cornerRadius))
             .background(backgroundColor)
-            .padding(vertical = 4.dp)
-            .padding(start = 6.dp)
+            .padding(vertical = dimensions.paddingXXSmall)
+            .padding(start = dimensions.paddingXSmall)
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 painter = painterResource(R.drawable.ic_star),
                 contentDescription = null,
-                tint = Color(0xff12B956),
-                modifier = Modifier.size(14.dp)
+                tint = colors.accent,
+                modifier = Modifier.size(dimensions.iconSizeSmall)
             )
-            Spacer(modifier = Modifier.width(4.dp))
+            Spacer(modifier = Modifier.width(dimensions.paddingXXSmall))
             Text(
                 text = rating.toString(),
                 style = MaterialTheme.typography.bodySmall,
                 fontWeight = FontWeight.Medium,
-                fontFamily = FontFamily(Font(R.font.roboto)),
-                color = Color(0xffF2F2F3)
+                color = colors.textPrimary
             )
         }
     }

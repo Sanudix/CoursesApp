@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 
+const val STOP_TIMEOUT_MILLIS = 5000L
+
 class MainViewModel(
     private val sharedViewModel: SharedCoursesViewModel,
     private val sortCoursesByDateUseCase: SortCoursesByDateUseCase
@@ -32,7 +34,7 @@ class MainViewModel(
             courses
     }.stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
+        started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
         initialValue = emptyList()
     )
 

@@ -63,4 +63,5 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation(project(":core:domain"))
+    implementation(project(":core:theme"))
 }

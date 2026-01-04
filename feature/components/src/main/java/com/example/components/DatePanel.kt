@@ -1,5 +1,8 @@
 package com.example.components
 
+
+import com.example.theme.ITCoursesApplicationTheme
+import com.example.theme.dimensions
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
@@ -12,10 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.example.domain.utils.FormatDateFromJson
 
 @Composable
@@ -23,24 +23,28 @@ fun DatePanel(
     text: String,
     modifier: Modifier = Modifier
         .wrapContentWidth()
-        .height(24.dp),
-    cornerRadius: Dp = 12.dp,
-    backgroundColor: Color = Color(0xff32333A).copy(alpha = 0.7f)
+        .height(ITCoursesApplicationTheme.dimensions.datePanelHeight),
+    cornerRadius: Dp = ITCoursesApplicationTheme.dimensions.cornerRadiusSmall,
+    backgroundColor: Color = ITCoursesApplicationTheme.colors.overlay
 ) {
     val date = FormatDateFromJson()
     val formattedDate = date.formatDate(text)
+    val colors = ITCoursesApplicationTheme.colors
+    val dimensions = ITCoursesApplicationTheme.dimensions
 
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(cornerRadius))
             .background(backgroundColor)
-            .padding(horizontal = 6.dp, vertical = 4.dp)
+            .padding(
+                horizontal = dimensions.paddingXSmall,
+                vertical = dimensions.paddingXXSmall
+            )
     ) {
         Text(
             text = formattedDate,
             style = MaterialTheme.typography.bodySmall,
-            fontFamily = FontFamily(Font(R.font.roboto)),
-            color = Color(0xffF2F2F3)
+            color = colors.textPrimary
         )
     }
 }

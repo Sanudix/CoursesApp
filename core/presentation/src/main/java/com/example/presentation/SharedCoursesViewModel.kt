@@ -26,7 +26,7 @@ class SharedCoursesViewModel(
         coursesFromNetwork = _coursesFromNetwork
     ).stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
+        started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
         initialValue = emptyList()
     )
 

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -16,28 +17,27 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.example.account.AccountScreen
 import com.example.favourites.navigation.FavoritesFlowNavHost
-import com.example.itcoursesapplication.R
 import com.example.main.navigation.HomeFlowNavHost
+import com.example.theme.ITCoursesApplicationTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun MainFlowNavHost() {
+    val colors = ITCoursesApplicationTheme.colors
+
     var currentDestination by rememberSaveable { mutableStateOf(AppDestinations.HOME) }
 
     val systemUiController = rememberSystemUiController()
     val useDarkIcons = false
     SideEffect {
         systemUiController.setStatusBarColor(
-            color = Color(0xff151515),
+            color = colors.background,
             darkIcons = useDarkIcons
         )
     }
@@ -46,41 +46,34 @@ fun MainFlowNavHost() {
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             NavigationBar(
-                containerColor = Color(0xff24252A)
+                containerColor = colors.cardBackground
             ) {
                 AppDestinations.entries.forEach { destination ->
+                    val isSelected = destination == currentDestination
+
                     NavigationBarItem(
-                        selected = destination == currentDestination,
+                        selected = isSelected,
                         onClick = { currentDestination = destination },
                         icon = {
                             Icon(
                                 painter = painterResource(
-                                    if (destination == currentDestination) destination.selectedIconResId
+                                    if (isSelected) destination.selectedIconResId
                                     else destination.iconResId
                                 ),
-                                contentDescription = destination.label,
-                                tint = if (destination == currentDestination) {
-                                    Color(0xff12B956)
-                                } else {
-                                    Color(0xffF2F2F3)
-                                }
+                                contentDescription = stringResource(destination.labelResId),
+                                tint = if (isSelected) colors.accent else colors.textPrimary
                             )
                         },
                         label = {
                             Text(
-                                text = destination.label,
-                                fontFamily = FontFamily(Font(R.font.roboto)),
-                                fontSize = 13.sp,
+                                text = stringResource(destination.labelResId),
+                                style = MaterialTheme.typography.labelSmall,
                                 fontWeight = FontWeight.Bold,
-                                color = if (destination == currentDestination) {
-                                    Color(0xff12B956)
-                                } else {
-                                    Color(0xffF2F2F3)
-                                }
+                                color = if (isSelected) colors.accent else colors.textPrimary
                             )
                         },
                         colors = NavigationBarItemDefaults.colors(
-                            indicatorColor = Color(0xff32333A)
+                            indicatorColor = colors.inputBackground
                         )
                     )
                 }

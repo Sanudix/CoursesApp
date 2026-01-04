@@ -65,6 +65,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.9.6")
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
+    implementation(project(":core:theme"))
     implementation(project(":core:presentation"))
     implementation(project(":feature:components"))
     implementation(project(":feature:course_detail"))

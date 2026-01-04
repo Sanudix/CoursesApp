@@ -16,6 +16,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -27,29 +28,27 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.presentation.extensions.openUrl
+import com.example.theme.ITCoursesApplicationTheme
+import com.example.theme.dimensions
 
 @Composable
 fun LoginScreen(
     onLoginSuccess: () -> Unit
 ) {
     val context = LocalContext.current
+    val colors = ITCoursesApplicationTheme.colors
+    val dimensions = ITCoursesApplicationTheme.dimensions
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -65,33 +64,28 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color(0xff151515))
-            .padding(top = 140.dp)
-            .padding(horizontal = 16.dp)
+            .background(color = colors.background)
+            .padding(top = dimensions.columnHeight)
+            .padding(horizontal = dimensions.paddingXMedium)
     ) {
         Text(
-//            text = "Вход",
             text = stringResource(R.string.login_title),
             modifier = Modifier,
-            color = Color(0xffF2F2F3),
-            fontSize = 28.sp,
-            fontFamily = FontFamily(Font(R.font.roboto)),
-            fontWeight = FontWeight.Normal,
+            color = colors.textPrimary,
+            style = MaterialTheme.typography.headlineLarge,
             textAlign = TextAlign.Start
         )
 
-        Spacer(Modifier.height(28.dp))
+        Spacer(Modifier.height(dimensions.paddingXLarge))
 
         Text(
             text = stringResource(R.string.login_email_label),
-            color = Color(0xffF2F2F3),
-            fontSize = 16.sp,
-            fontFamily = FontFamily(Font(R.font.roboto)),
-            fontWeight = FontWeight.Normal,
+            color = colors.textPrimary,
+            style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Start
         )
 
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(dimensions.paddingSmall))
 
         TextField(
             value = email,
@@ -108,9 +102,8 @@ fun LoginScreen(
             placeholder = {
                 Text(
                     text = stringResource(R.string.login_email_placeholder),
-                    fontFamily = FontFamily(Font(R.font.roboto)),
-                    color = Color(0xffF2F2F3),
-                    modifier = Modifier.alpha(0.5f)
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = colors.textSecondary
                 )
             },
             colors = TextFieldDefaults.colors(
@@ -118,28 +111,26 @@ fun LoginScreen(
                 unfocusedContainerColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                cursorColor = Color(0x80F2F2F3),
-                focusedTextColor = Color(0xffF2F2F3),
-                unfocusedTextColor = Color(0xffF2F2F3)
+                cursorColor = colors.cursorColor,
+                focusedTextColor = colors.textPrimary,
+                unfocusedTextColor = colors.textPrimary
             ),
             modifier = Modifier
-                .clip(RoundedCornerShape(30.dp))
-                .background(Color(0xff32333A))
+                .clip(RoundedCornerShape(dimensions.cornerRadiusXLarge))
+                .background(colors.inputBackground)
                 .fillMaxWidth()
         )
 
-        Spacer(Modifier.height(28.dp))
+        Spacer(Modifier.height(dimensions.paddingXLarge))
 
         Text(
             text = stringResource(R.string.login_password_label),
-            color = Color(0xffF2F2F3),
-            fontSize = 16.sp,
-            fontFamily = FontFamily(Font(R.font.roboto)),
-            fontWeight = FontWeight.Normal,
+            color = colors.textPrimary,
+            style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Start
         )
 
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(dimensions.paddingSmall))
 
         TextField(
             value = password,
@@ -147,9 +138,8 @@ fun LoginScreen(
             placeholder = {
                 Text(
                     text = stringResource(R.string.login_password_placeholder),
-                    fontFamily = FontFamily(Font(R.font.roboto)),
-                    color = Color(0xffF2F2F3),
-                    modifier = Modifier.alpha(0.5f)
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = colors.textSecondary
                 )
             },
             keyboardOptions = KeyboardOptions(
@@ -163,17 +153,17 @@ fun LoginScreen(
                 unfocusedContainerColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
-                cursorColor = Color(0x80F2F2F3),
-                focusedTextColor = Color(0xffF2F2F3),
-                unfocusedTextColor = Color(0xffF2F2F3)
+                cursorColor = colors.cursorColor,
+                focusedTextColor = colors.textPrimary,
+                unfocusedTextColor = colors.textPrimary
             ),
             modifier = Modifier
-                .clip(RoundedCornerShape(30.dp))
-                .background(Color(0xff32333A))
+                .clip(RoundedCornerShape(dimensions.cornerRadiusXLarge))
+                .background(colors.inputBackground)
                 .fillMaxWidth()
         )
 
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(dimensions.paddingLarge))
 
         Button(
             onClick = {
@@ -182,18 +172,16 @@ fun LoginScreen(
                 }
             },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xff12B956),
-                disabledContainerColor = Color(0xff12B956).copy(alpha = 0.5f)
+                containerColor = colors.accent,
+                disabledContainerColor = colors.buttonDisabled
             ),
             enabled = isFormValid,
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
                 text = stringResource(R.string.login_button),
-                color = Color(0xffF2F2F3),
-                fontSize = 16.sp,
-                fontFamily = FontFamily(Font(R.font.roboto)),
-                fontWeight = FontWeight.Normal,
+                color = colors.textPrimary,
+                style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Start
             )
         }
@@ -201,52 +189,46 @@ fun LoginScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp),
+                .padding(top = dimensions.paddingXMedium),
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
                 text = stringResource(R.string.login_no_account),
-                color = Color(0xffF2F2F3),
-                fontSize = 12.sp,
-                fontFamily = FontFamily(Font(R.font.roboto)),
-                fontWeight = FontWeight.SemiBold,
+                color = colors.textPrimary,
+                style = MaterialTheme.typography.labelMedium,
                 textAlign = TextAlign.Start
             )
 
-            Spacer(Modifier.width(4.dp))
+            Spacer(Modifier.width(dimensions.paddingXXSmall))
 
             Text(
                 text = stringResource(R.string.login_register),
-                color = Color(0xff12B956),
-                fontSize = 12.sp,
-                fontFamily = FontFamily(Font(R.font.roboto)),
-                fontWeight = FontWeight.SemiBold,
+                color = colors.accent,
+                style = MaterialTheme.typography.labelMedium,
                 textAlign = TextAlign.Start
             )
         }
 
         Text(
             text = stringResource(R.string.login_forgot_password),
-            color = Color(0xff12B956),
-            fontSize = 12.sp,
-            fontFamily = FontFamily(Font(R.font.roboto)),
-            fontWeight = FontWeight.SemiBold,
+            color = colors.accent,
+            style = MaterialTheme.typography.labelMedium,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 8.dp),
+                .padding(top = dimensions.paddingSmall),
             textAlign = TextAlign.Center,
         )
 
-        Spacer(Modifier.height(32.dp))
+        Spacer(Modifier.height(dimensions.paddingXXLarge))
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(2.dp)
-                .background(Color(0xff4D555E))
+                .height(dimensions.dividerHeight)
+                .background(colors.divider)
         )
 
-        Spacer(Modifier.height(32.dp))
+        Spacer(Modifier.height(dimensions.paddingXXLarge))
 
         Row(
             modifier = Modifier
@@ -262,9 +244,9 @@ fun LoginScreen(
                     containerColor = Color.Transparent
                 ),
                 modifier = Modifier
-                    .width(156.dp)
-                    .clip(shape = RoundedCornerShape(30.dp))
-                    .background(Color(0xff2683ED))
+                    .width(dimensions.buttonSpecialHeight)
+                    .clip(shape = RoundedCornerShape(dimensions.cornerRadiusXLarge))
+                    .background(colors.vkBlue)
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_vk),
@@ -273,7 +255,7 @@ fun LoginScreen(
                 )
             }
 
-            Spacer(Modifier.width(16.dp))
+            Spacer(Modifier.width(dimensions.paddingXMedium))
 
             Button(
                 onClick = {
@@ -283,14 +265,14 @@ fun LoginScreen(
                     containerColor = Color.Transparent
                 ),
                 modifier = Modifier
-                    .height(40.dp)
-                    .width(156.dp)
-                    .clip(shape = RoundedCornerShape(30.dp))
+                    .height(dimensions.buttonHeightSmall)
+                    .width(dimensions.buttonSpecialHeight)
+                    .clip(shape = RoundedCornerShape(dimensions.cornerRadiusXLarge))
                     .background(
                         brush = Brush.verticalGradient(
                             colors = listOf(
-                                Color(0xffF98509),
-                                Color(0xffF95D00)
+                                colors.okOrangeStart,
+                                colors.okOrangeEnd
                             )
                         )
                     )

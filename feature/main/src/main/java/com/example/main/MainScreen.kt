@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -30,23 +31,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.components.CardItem
 import com.example.presentation.MainViewModel
+import com.example.theme.ITCoursesApplicationTheme
+import com.example.theme.dimensions
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -54,6 +51,8 @@ fun MainScreen(
     onCourseClick: (courseId: Int) -> Unit = {}
 ) {
     val viewModel: MainViewModel = koinViewModel()
+    val colors = ITCoursesApplicationTheme.colors
+    val dimensions = ITCoursesApplicationTheme.dimensions
     val courses by viewModel.displayedCourses.collectAsStateWithLifecycle()
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
     val errorMessage by viewModel.errorMessage.collectAsStateWithLifecycle()
@@ -63,9 +62,9 @@ fun MainScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color(0xff151515))
-            .padding(top = 16.dp)
-            .padding(horizontal = 16.dp)
+            .background(color = colors.background)
+            .padding(top = dimensions.paddingXMedium)
+            .padding(horizontal = dimensions.paddingXMedium)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -74,13 +73,13 @@ fun MainScreen(
             Box(
                 modifier = Modifier
                     .weight(1f)
-                    .height(52.dp)
+                    .height(dimensions.buttonHeightLarge)
                     .shadow(
-                        elevation = 8.dp,
-                        shape = RoundedCornerShape(28.dp),
+                        elevation = dimensions.paddingSmall,
+                        shape = RoundedCornerShape(dimensions.cornerRadiusLarge),
                         clip = true
                     )
-                    .background(Color(0xff24252A))
+                    .background(colors.cardBackground)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -89,9 +88,13 @@ fun MainScreen(
                     Icon(
                         painter = painterResource(R.drawable.ic_search),
                         contentDescription = null,
-                        tint = Color(0xffF2F2F3),
+                        tint = colors.textPrimary,
                         modifier = Modifier
-                            .padding(start = 16.dp, top = 16.dp, bottom = 16.dp)
+                            .padding(
+                                start = dimensions.paddingXMedium,
+                                top = dimensions.paddingXMedium,
+                                bottom = dimensions.paddingXMedium
+                            )
                     )
 
                     TextField(
@@ -100,10 +103,8 @@ fun MainScreen(
                         placeholder = {
                             Text(
                                 text = stringResource(R.string.main_search_placeholder),
-                                fontFamily = FontFamily(Font(R.font.roboto)),
-                                fontSize = 18.sp,
-                                color = Color(0xffF2F2F3),
-                                modifier = Modifier.alpha(0.5f)
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = colors.textSecondary
                             )
                         },
                         keyboardOptions = KeyboardOptions(
@@ -123,49 +124,47 @@ fun MainScreen(
                 }
             }
 
-            Spacer(Modifier.width(8.dp))
+            Spacer(Modifier.width(dimensions.paddingSmall))
 
             Box(
                 modifier = Modifier
                     .background(
                         shape = CircleShape,
-                        color = Color(0xff24252A)
+                        color = colors.cardBackground
                     )
-                    .size(56.dp),
+                    .size(dimensions.avatarSizeLarge),
             ) {
                 Icon(
                     painter = painterResource(R.drawable.ic_funnel),
                     contentDescription = null,
                     modifier = Modifier.align(Alignment.Center),
-                    tint = Color(0xffF2F2F3)
+                    tint = colors.textPrimary
                 )
             }
         }
 
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(dimensions.paddingXMedium))
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable{viewModel.toggleSorting()},
+                .clickable { viewModel.toggleSorting() },
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
                 text = stringResource(R.string.main_sort_by_date),
-                color = Color(0xff12B956),
-                fontSize = 14.sp,
-                fontFamily = FontFamily(Font(R.font.roboto)),
-                fontWeight = FontWeight.SemiBold,
+                color = colors.accent,
+                style = MaterialTheme.typography.labelLarge,
                 textAlign = TextAlign.Start
             )
 
-            Spacer(Modifier.width(2.dp))
+            Spacer(Modifier.width(dimensions.dividerHeight))
 
             Icon(
                 painter = painterResource(R.drawable.ic_arrow_down_up),
                 contentDescription = null,
-                tint = Color(0xff12B956)
+                tint = colors.accent
             )
         }
 
@@ -174,18 +173,18 @@ fun MainScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(vertical = 32.dp),
+                        .padding(vertical = dimensions.paddingXXLarge),
                     contentAlignment = Alignment.Center
                 ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                        verticalArrangement = Arrangement.spacedBy(dimensions.paddingXMedium)
                     ) {
-                        CircularProgressIndicator(color = Color(0xff12B956))
+                        CircularProgressIndicator(color = colors.accent)
                         Text(
                             text = stringResource(R.string.main_loading),
-                            color = Color(0xffF2F2F3),
-                            fontFamily = FontFamily(Font(R.font.roboto))
+                            color = colors.textPrimary,
+                            style = MaterialTheme.typography.bodyMedium
                         )
                     }
                 }
@@ -195,24 +194,22 @@ fun MainScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(vertical = 32.dp),
+                        .padding(vertical = dimensions.paddingXXLarge),
                     contentAlignment = Alignment.Center
                 ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                        verticalArrangement = Arrangement.spacedBy(dimensions.paddingXMedium)
                     ) {
                         Text(
                             text = stringResource(R.string.main_error_title),
-                            color = Color(0xffFF5252),
-                            fontFamily = FontFamily(Font(R.font.roboto)),
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 18.sp
+                            color = colors.error,
+                            style = MaterialTheme.typography.titleMedium
                         )
                         Text(
                             text = errorMessage ?: stringResource(R.string.main_error_unknown),
-                            color = Color(0xffF2F2F3),
-                            fontFamily = FontFamily(Font(R.font.roboto))
+                            color = colors.textPrimary,
+                            style = MaterialTheme.typography.bodyMedium
                         )
                     }
                 }
@@ -222,18 +219,17 @@ fun MainScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(vertical = 32.dp),
+                        .padding(vertical = dimensions.paddingXXLarge),
                     contentAlignment = Alignment.Center
                 ) {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                        verticalArrangement = Arrangement.spacedBy(dimensions.paddingXMedium)
                     ) {
                         Text(
                             text = stringResource(R.string.main_no_courses),
-                            color = Color(0xffF2F2F3),
-                            fontFamily = FontFamily(Font(R.font.roboto)),
-                            fontSize = 18.sp
+                            color = colors.textPrimary,
+                            style = MaterialTheme.typography.titleMedium
                         )
                     }
                 }

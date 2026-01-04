@@ -86,4 +86,5 @@ dependencies {
     implementation(project(":core:di"))
     implementation(project(":core:domain"))
     implementation(project(":core:presentation"))
+    implementation(project(":core:theme"))
 }

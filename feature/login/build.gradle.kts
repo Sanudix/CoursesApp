@@ -61,4 +61,5 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     implementation("androidx.navigation:navigation-compose:2.9.6")
     implementation(project(":core:presentation"))
+    implementation(project(":core:theme"))
 }

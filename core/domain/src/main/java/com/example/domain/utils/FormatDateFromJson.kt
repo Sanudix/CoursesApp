@@ -1,10 +1,12 @@
 package com.example.domain.utils
 
+const val DATE_ELEMENTS_NUMBER = 3
+
 class FormatDateFromJson {
     fun formatDate(dateString: String): String {
         return try {
             val parts = dateString.split("-")
-            if (parts.size != 3) return dateString
+            if (parts.size != DATE_ELEMENTS_NUMBER) return dateString
 
             val year = parts[0]
             val month = parts[1].toInt()
